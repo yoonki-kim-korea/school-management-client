@@ -78,6 +78,8 @@ function EmploymentModal({ open, onClose, editable, issued, documentInfo, search
         //첫번째에 seit가 2번 생기는 문제로 분기
         if(i === 0){
           result.push(`${DataExtract.getFommatedDate2(contact.contactStartDate,'.')}${to}${DataExtract.getFommatedDate2(contact.realEndDate,'.')}`);
+        }else if(i === mycontacts.length-1) {        
+          result.push(`und seit ${DataExtract.getFommatedDate2(contact.contactStartDate,'.')} bis zum ${(contact.realEndDate) ? DataExtract.getFommatedDate2(contact.realEndDate,'.') : ' bis zum heutigen Tage '}`);
         }else{
           result.push(`${from}${DataExtract.getFommatedDate2(contact.contactStartDate,'.')}${to}${DataExtract.getFommatedDate2(contact.realEndDate,'.')}`);
         }
@@ -98,12 +100,11 @@ function EmploymentModal({ open, onClose, editable, issued, documentInfo, search
       
       let t1 = '';
       let endDate = document.getElementById('endDate').value;
-      endDate = endDate.replace('-','').replace('-', '');
-      endDate = DataExtract.getFommatedDate2(endDate, '.');
-
+          endDate = endDate.replace('-','').replace('-', '');
+          endDate = DataExtract.getFommatedDate2(endDate, '.');
 
       if(contacts && contacts.length > 0){
-        t1 = printContacts(contacts, 'seit ', ' bis ', ', ') + endDate;
+        t1 = `${printContacts(contacts, 'vom ', ' bis ', ', ')}`;
       }else{
         if(editable.resignDay !== ''){
           //퇴사자인 경우 퇴사일자까지 나와야 한다.
@@ -220,7 +221,7 @@ function EmploymentModal({ open, onClose, editable, issued, documentInfo, search
                             </TableRow>
 
                             <TableRow>
-                                <TableCell align="left" style={{height:200}}>내용</TableCell>
+                                <TableCell align="left" style={{height:250}}>내용</TableCell>
                                 <TableCell align="left" colSpan="8">                   
                                     <TextareaAutosize
                                       name="comment"
@@ -228,7 +229,7 @@ function EmploymentModal({ open, onClose, editable, issued, documentInfo, search
                                       rows={4}
                                       rowsMax={10}
                                       aria-label="maximum height"
-                                      style={{width:800,height:130}}
+                                      style={{width:800,height:180}}
                                     />
                                 </TableCell>                    
                             </TableRow>
