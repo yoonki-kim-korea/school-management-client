@@ -244,6 +244,10 @@ export default class ExcelPage extends Component {
       student.motherNameEng = DataExtract.getEmptyWithAlternative(temp.motherNameEng, '');
       student.motherPhoneNo = DataExtract.getEmptyWithAlternative(temp.motherPhoneNo, '');
 
+      //우편번호가 number로 넘어오므로 문자열로 변환한다.
+      if(typeof student.plz === 'number'){
+        student.plz = "" + student.plz;
+      }
       if(student.plz !== '' && student.plz.length !== 5){
         alert(`${i+1} 줄에서 우편번호가 5자리가 아닙니다. 만일 모를 경우 빈 상태로 저장해야 합니다.`); return;   
       }
